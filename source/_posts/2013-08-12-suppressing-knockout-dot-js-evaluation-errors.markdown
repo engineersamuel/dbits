@@ -14,7 +14,7 @@ I've coded quite extensively in knockout.js, it isn't a large framework, and it 
 
 ### Problem
 
-You may venture into working with much more unstructured content with Knockout.  I personally prefer *schemaless*/*modeless* designs when working with projects that lend to that style.  When I say *schemaless* or *modeless* I mean passing json directly from the database through the *response* to Knockout.
+You may venture into working with much more unstructured content with Knockout.  I personally prefer *schemaless*/*modeless* designs when working with projects that lend to that style.  When I say *schemaless* or *modeless* I mean passing json directly from the database through the *response* to Knockout observables.
 
 {% codeblock lang:coffeescript %}
 class @ViewModelProducts
