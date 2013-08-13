@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ui | DBits]]></title>
   <link href="http://engineersamuel.github.io/dbits/blog/categories/ui/atom.xml" rel="self"/>
   <link href="http://engineersamuel.github.io/dbits/"/>
-  <updated>2013-08-12T22:36:04-04:00</updated>
+  <updated>2013-08-13T16:52:26-04:00</updated>
   <id>http://engineersamuel.github.io/dbits/</id>
   <author>
     <name><![CDATA[Samuel Mendenhall]]></name>
@@ -26,7 +26,7 @@
 
 <h3>Problem</h3>
 
-<p>You may venture into working with much more unstructured content with Knockout.  I personally prefer <em>schemaless</em>/<em>modeless</em> designs when working with projects that lend to that style.  When I say <em>schemaless</em> or <em>modeless</em> I mean passing json directly from the database through the <em>response</em> to Knockout.</p>
+<p>You may venture into working with much more unstructured content with Knockout.  I personally prefer <em>schemaless</em>/<em>modeless</em> designs when working with projects that lend to that style.  When I say <em>schemaless</em> or <em>modeless</em> I mean passing json directly from the database through the <em>response</em> to Knockout observables.</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>

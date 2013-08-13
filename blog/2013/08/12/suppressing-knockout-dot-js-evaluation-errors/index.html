@@ -31,6 +31,18 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-43141451-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -99,7 +111,7 @@
 
 <h3>Problem</h3>
 
-<p>You may venture into working with much more unstructured content with Knockout.  I personally prefer <em>schemaless</em>/<em>modeless</em> designs when working with projects that lend to that style.  When I say <em>schemaless</em> or <em>modeless</em> I mean passing json directly from the database through the <em>response</em> to Knockout.</p>
+<p>You may venture into working with much more unstructured content with Knockout.  I personally prefer <em>schemaless</em>/<em>modeless</em> designs when working with projects that lend to that style.  When I say <em>schemaless</em> or <em>modeless</em> I mean passing json directly from the database through the <em>response</em> to Knockout observables.</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -339,6 +351,12 @@
   </footer>
 </article>
 
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
 </div>
 
 <aside class="sidebar">
@@ -352,6 +370,37 @@
       </li>
     
   </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/engineersamuel">@engineersamuel</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            //jxhr.src = '/javascripts/libs/jXHR.js';
+            // TODO why does the root_url not work there?
+            jxhr.src = '/dbits/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'engineersamuel',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/dbits/javascripts/github.js" type="text/javascript"> </script>
 </section>
 
 
@@ -371,6 +420,22 @@
 
 </footer>
   
+
+<script type="text/javascript">
+      var disqus_shortname = 'dbits';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://engineersamuel.github.io/dbits/blog/2013/08/12/suppressing-knockout-dot-js-evaluation-errors/';
+        var disqus_url = 'http://engineersamuel.github.io/dbits/blog/2013/08/12/suppressing-knockout-dot-js-evaluation-errors/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
