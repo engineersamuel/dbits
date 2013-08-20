@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: angularjs | DBits]]></title>
+  <link href="http://engineersamuel.github.io/dbits/blog/categories/angularjs/atom.xml" rel="self"/>
+  <link href="http://engineersamuel.github.io/dbits/"/>
+  <updated>2013-08-19T22:30:52-04:00</updated>
+  <id>http://engineersamuel.github.io/dbits/</id>
+  <author>
+    <name><![CDATA[Samuel Mendenhall]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[RequireJS + AngularJS + pnotify]]></title>
+    <link href="http://engineersamuel.github.io/dbits/blog/2013/08/19/requirejs-plus-angularjs-plus-pnotify/"/>
+    <updated>2013-08-19T21:05:00-04:00</updated>
+    <id>http://engineersamuel.github.io/dbits/blog/2013/08/19/requirejs-plus-angularjs-plus-pnotify</id>
+    <content type="html"><![CDATA[<h3>Introduction</h3>
+
+<p>Let&rsquo;s add pnotify: <a href="http://pinesframework.org/pnotify/">Pines Notify</a> to an AngularJS webapp using RequireJS.  Now typically with an AngularJS app you would do this per the pnotify <a href="https://github.com/sciactive/pnotify#getting-started">directions</a>.  When using RequireJS the steps are a bit different however.</p>
+
+<h3>Basic Example</h3>
+
+<h4>Steps:</h4>
+
+<ul>
+<li><p>From <a href="https://github.com/sciactive/pnotify">pnotify/Github</a> Copy jquery.pnotify.js to your lib/notify directory and jquery.pnotify.default.css and jquery.pnotify.default.icons.css to your css directory.  You can choose the directory structure as you see fit, as long as it is setup properly in RequireJS</p></li>
+<li><p>Add the css to your index, no need to add the pnotify js however, that will be handled by require.</p></li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='jade'><span class='line'><span class="nn">!!! transitional</span>
+</span><span class='line'><span class="nt">html</span>(<span class="na">lang=</span><span class="err">&amp;</span><span class="nv">ldquo</span><span class="err">;</span><span class="na">en</span><span class="err">&amp;</span><span class="na">rdquo</span><span class="err">;,</span> <span class="na">ng-app=</span><span class="err">&amp;</span><span class="nv">ldquo</span><span class="err">;&amp;</span><span class="na">rdquo</span><span class="err">;</span>)&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;</span><span class="nt">pre</span>&gt;&lt;code&gt;head
+</span><span class='line'>    <span class="nt">title</span> Data Glue
+</span><span class='line'>    <span class="nt">meta</span>(<span class="na">name=</span><span class="s">&quot;viewport&quot;</span><span class="err">,</span><span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span>)
+</span><span class='line'>    <span class="nt">script</span>(<span class="na">data-main=</span><span class="s">&quot;js/main&quot;</span><span class="err">,</span><span class="na">src=</span><span class="s">&quot;js/lib/require/require.js&quot;</span>)
+</span><span class='line'>    <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="err">,</span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="err">,</span><span class="na">media=</span><span class="s">&quot;all&quot;</span><span class="err">,</span><span class="na">href=</span><span class="s">&quot;css/bootstrap.min.css&quot;</span>)
+</span><span class='line'>    <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="err">,</span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="err">,</span><span class="na">media=</span><span class="s">&quot;all&quot;</span><span class="err">,</span><span class="na">href=</span><span class="s">&quot;css/app.css&quot;</span>)
+</span><span class='line'>    <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="err">,</span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="err">,</span><span class="na">media=</span><span class="s">&quot;all&quot;</span><span class="err">,</span><span class="na">href=</span><span class="s">&quot;css/pines/jquery.pnotify.default.css&quot;</span>)
+</span><span class='line'>    <span class="nt">link</span>(<span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="err">,</span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="err">,</span><span class="na">media=</span><span class="s">&quot;all&quot;</span><span class="err">,</span><span class="na">href=</span><span class="s">&quot;css/pines/jquery.pnotify.default.icons.css&quot;</span>)
+</span><span class='line'><span class="err">&lt;</span><span class="c">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;</span><span class="nt">p</span>&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<ul>
+<li>Your main.js should looks similar to:</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">paths</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">jquery</span><span class="o">:</span> <span class="s1">&#39;lib/jquery/jquery-2.0.3&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">angular</span><span class="o">:</span> <span class="s1">&#39;lib/angular/angular&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;lib/require/text&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">bootstrap</span><span class="o">:</span> <span class="s1">&#39;lib/bootstrap/bootstrap&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;jquery.pnotify&#39;</span><span class="o">:</span> <span class="s1">&#39;lib/pines/jquery.pnotify&#39;</span>
+</span><span class='line'>    <span class="c1">// You could also reference the github path</span>
+</span><span class='line'>    <span class="c1">//&#39;jquery.pnotify&#39;: &#39;https://raw.github.com/sciactive/pnotify/master/jquery.pnotify.min&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">},</span>
+</span><span class='line'><span class="nx">baseUrl</span><span class="o">:</span> <span class="s1">&#39;js&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="nx">shim</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s1">&#39;angular&#39;</span> <span class="o">:</span> <span class="p">{</span><span class="s1">&#39;exports&#39;</span> <span class="o">:</span> <span class="s1">&#39;angular&#39;</span><span class="p">},</span>
+</span><span class='line'>    <span class="s1">&#39;angularMocks&#39;</span><span class="o">:</span> <span class="p">{</span><span class="nx">deps</span><span class="o">:</span><span class="p">[</span><span class="s1">&#39;angular&#39;</span><span class="p">],</span> <span class="s1">&#39;exports&#39;</span><span class="o">:</span><span class="s1">&#39;angular.mock&#39;</span><span class="p">},</span>
+</span><span class='line'>    <span class="s1">&#39;bootstrap&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;jquery&quot;</span><span class="p">],</span>
+</span><span class='line'>    <span class="c1">// Nothing too special here, just remember to depend on jquery</span>
+</span><span class='line'>    <span class="s1">&#39;jquery.pnotify&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;jquery&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="p">},</span>
+</span><span class='line'><span class="nx">priority</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="s2">&quot;angular&quot;</span>
+</span><span class='line'><span class="p">],</span>
+</span><span class='line'><span class="c1">// http://stackoverflow.com/questions/8315088/prevent-requirejs-from-caching-required-scripts</span>
+</span><span class='line'><span class="nx">urlArgs</span><span class="o">:</span> <span class="s2">&quot;bust=&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()).</span><span class="nx">getTime</span><span class="p">()</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">require</span><span class="p">([</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="s1">&#39;angular&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="s1">&#39;app&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="s1">&#39;routes&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="s1">&#39;bootstrap&#39;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">angular</span><span class="p">,</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">routes</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">bootstrap</span><span class="p">(</span><span class="nb">document</span><span class="p">,</span> <span class="p">[</span><span class="nx">app</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<ul>
+<li>Now for defining a Controller using RequireJS that works with AngularJS.  The key here is to depend on jquery and jquery.pnotify in the RequireJS define, not in the second AngularJS []</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="nx">jquery</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;,</span> <span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="nx">jquery</span><span class="p">.</span><span class="nx">pnotify</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;],</span> <span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="o">&amp;</span><span class="nx">ndash</span><span class="p">;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">$scope</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="o">&amp;</span><span class="nx">ndash</span><span class="p">;</span><span class="o">&gt;&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">$</span><span class="p">.</span><span class="nx">pnotify</span>
+</span><span class='line'>    <span class="nv">title: </span><span class="s">&#39;Regular Notice&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nv">text: </span><span class="s">&#39;Check me out! I\&#39;m a notice.&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># because this has happened asynchronously we&#39;ve missed</span>
+</span><span class='line'><span class="c1"># Angular&#39;s initial call to $apply after the controller has been loaded</span>
+</span><span class='line'><span class="c1"># hence we need to explicityly call it at the end of our Controller constructor</span>
+</span><span class='line'><span class="nx">$scope</span><span class="p">.</span><span class="nx">$apply</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<ul>
+<li>This works great, however we can make this even more consice and modular by turning the pnotify into a service.</li>
+</ul>
+
+
+<p>Open your services.js make sure that jquery and jquery.pnotify are dependencies, then add a factory for the pnotify.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">define</span><span class="p">([</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">angular</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">jquery</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">jquery</span><span class="p">.</span><span class="nx">pnotify</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">angular</span><span class="p">,</span> <span class="nx">$</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;myApp.services&#39;</span><span class="p">,</span> <span class="p">[])</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">value</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="s1">&#39;0.1&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s1">&#39;sharedProperties&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+</span><span class='line'>        <span class="p">};</span>
+</span><span class='line'>    <span class="p">})</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;notificationService&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$http</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">notify</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">hash</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">$</span><span class="p">.</span><span class="nx">pnotify</span><span class="p">(</span><span class="nx">hash</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">};</span>
+</span><span class='line'>    <span class="p">}]);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The benefit here is not only does this result in less code in the controllers, but also that the notifications are abstracted so you could easily switch out the notification framework or add additional logging or the like without modifying your controllers.</p>
+
+<p>Speaking of controllers, let&rsquo;s change the previous controller definition to:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">define</span> <span class="p">[],</span> <span class="p">()</span> <span class="o">&amp;</span><span class="nx">ndash</span><span class="p">;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">$scope</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">$http</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">notificationService</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">$http</span><span class="p">,</span> <span class="nx">notificationService</span><span class="p">)</span> <span class="o">&amp;</span><span class="nx">ndash</span><span class="p">;</span><span class="o">&gt;&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">notificationService</span><span class="p">.</span><span class="nx">notify</span>
+</span><span class='line'>  <span class="nv">title: </span><span class="s">&#39;Regular Notice&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nv">text: </span><span class="s">&#39;Check me out! I\&#39;m a notice.&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># because this has happened asynchroneusly we&#39;ve missed</span>
+</span><span class='line'><span class="c1"># Angular&#39;s initial call to $apply after the controller has been loaded</span>
+</span><span class='line'><span class="c1"># hence we need to explicityly call it at the end of our Controller constructor</span>
+</span><span class='line'><span class="nx">$scope</span><span class="p">.</span><span class="nx">$apply</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>That&rsquo;s it, you can depend on that notificationService in Angular now for easy notifications.</p>
+]]></content>
+  </entry>
+  
+</feed>

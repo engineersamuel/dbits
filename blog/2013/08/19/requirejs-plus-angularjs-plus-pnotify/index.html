@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>DBits</title>
+  <title>RequireJS + AngularJS + pnotify - DBits</title>
   <meta name="author" content="Samuel Mendenhall">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://engineersamuel.github.io/dbits">
+  <link rel="canonical" href="http://engineersamuel.github.io/dbits/blog/2013/08/19/requirejs-plus-angularjs-plus-pnotify">
   <link href="/dbits/favicon.png" rel="icon">
   <link href="/dbits/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/dbits/atom.xml" rel="alternate" title="DBits" type="application/atom+xml">
@@ -76,15 +76,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/dbits/blog/2013/08/19/requirejs-plus-angularjs-plus-pnotify/">RequireJS + AngularJS + Pnotify</a></h1>
+      <h1 class="entry-title">RequireJS + AngularJS + Pnotify</h1>
     
     
       <p class="meta">
@@ -107,7 +104,7 @@
   </header>
 
 
-  <div class="entry-content"><h3>Introduction</h3>
+<div class="entry-content"><h3>Introduction</h3>
 
 <p>Let&rsquo;s add pnotify: <a href="http://pinesframework.org/pnotify/">Pines Notify</a> to an AngularJS webapp using RequireJS.  Now typically with an AngularJS app you would do this per the pnotify <a href="https://github.com/sciactive/pnotify#getting-started">directions</a>.  When using RequireJS the steps are a bit different however.</p>
 
@@ -331,22 +328,16 @@
 
 <p>That&rsquo;s it, you can depend on that notificationService in Angular now for easy notifications.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/dbits/blog/2013/08/12/suppressing-knockout-dot-js-evaluation-errors/">Suppressing knockout.js Evaluation Errors</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Samuel Mendenhall</span></span>
+
+      
 
 
 
@@ -358,224 +349,44 @@
   
 
 
-<time datetime="2013-08-12T19:53:00-04:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
-        
-      </p>
+<time datetime="2013-08-19T21:05:00-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/dbits/blog/categories/angularjs/'>angularjs</a>, <a class='category' href='/dbits/blog/categories/coffeescript/'>coffeescript</a>, <a class='category' href='/dbits/blog/categories/javascript/'>javascript</a>, <a class='category' href='/dbits/blog/categories/pnotify/'>pnotify</a>, <a class='category' href='/dbits/blog/categories/requirejs/'>requirejs</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><h3>Introduction</h3>
-
-<p>This is not intended to be a beginners guide or tutorial on knockout.js.  For those of you who are unfarmiliar with Knockout.js please see <a href="http://knockoutjs.com/">Knockout.js</a></p>
-
-<p>I&rsquo;ve coded quite extensively in knockout.js, it isn&rsquo;t a large framework, and it does have a few minior pain points, but overall it is a highly effective framework that allows for significant productivity.</p>
-
-<h3>Problem</h3>
-
-<p>You may venture into working with much more unstructured content with Knockout.  I personally prefer <em>schemaless</em>/<em>modeless</em> designs when working with projects that lend to that style.  When I say <em>schemaless</em> or <em>modeless</em> I mean passing json directly from the database through the <em>response</em> to Knockout observables.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="k">class</span> <span class="nx">@ViewModelProducts</span>
-</span><span class='line'>    <span class="nv">constructor: </span><span class="p">()</span> <span class="nf">-&gt;</span>
-</span><span class='line'>        <span class="vi">@products = </span><span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([])</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nv">fetch_products: </span><span class="p">()</span> <span class="nf">-&gt;</span>
-</span><span class='line'>        <span class="nv">the_promise = </span><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;/products&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nv">somearg: </span><span class="kc">undefined</span><span class="p">})</span>
-</span><span class='line'>        <span class="nx">$</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">the_promise</span><span class="p">).</span><span class="nx">done</span><span class="p">(</span> <span class="nf">(response) =&gt;</span>
-</span><span class='line'>            <span class="c1"># Remember the =&gt; is required in the nested ajax to access @</span>
-</span><span class='line'>            <span class="c1"># I&#39;m passing in either the js obj if it is native or the parsed version if it was stringified</span>
-</span><span class='line'>            <span class="nx">@products</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">response</span> <span class="o">is</span> <span class="s">&quot;object&quot;</span> <span class="k">then</span> <span class="k">return</span> <span class="nx">response</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">response</span> <span class="o">is</span> <span class="s">&quot;&quot;</span> <span class="k">then</span> <span class="k">return</span> <span class="kc">undefined</span> <span class="k">else</span> <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">).</span><span class="nx">fail</span><span class="p">(</span> <span class="nf">(response) -&gt;</span>
-</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">response</span><span class="p">.</span><span class="nx">error</span>
-</span><span class='line'>        <span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>There is definitely a risk associated with this however, and that is Knockout failing on evaluating a field that doesn&rsquo;t exist, either by intention or not.   This risk would be a valid argument of those arguing for type safety, which could be somewhat imposed more strictly by using javascript classes.</p>
-
-<p>However, I&rsquo;ve found that creating a coffeescript class/viewmodel and using the <a href="http://knockoutjs.com/documentation/plugins-mapping.html">Knockout mapping plugin</a> to map the json is not necessarily as efficient as simply reading the json straight into an <em>observable</em>.  Don&rsquo;t get me wrong, the Knockout mapping works fantastically, but there is a decent amount of code just to write each class that you want to map.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='jade'><span class='line'><span class="nt">table</span>
-</span><span class='line'>    <span class="nt">thead</span>
-</span><span class='line'>        <span class="nt">tr</span>
-</span><span class='line'>            <span class="nt">th</span> Name
-</span><span class='line'>            <span class="nt">th</span> Price
-</span><span class='line'>    <span class="nt">tbody</span>(<span class="na">data-bind=</span><span class="s">&quot;foreach: viewModels.viewModelProducts.products&quot;</span>)
-</span><span class='line'>        <span class="nt">tr</span>
-</span><span class='line'>            <span class="nt">td</span>(<span class="na">data-bind=</span><span class="s">&quot;text: name&quot;</span>)
-</span><span class='line'>            <span class="nt">td</span>(<span class="na">data-bind=</span><span class="s">&quot;text: vendor&quot;</span>)
-</span><span class='line'>            <span class="nt">td</span>(<span class="na">data-bind=</span><span class="s">&quot;text: price&quot;</span>)
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now let&rsquo;s say that the json returns several correct items then one with a  <em>name</em> and <em>price</em> but <strong>not</strong> a <em>vendor</em> field.  This is going to cause Knockout.js to fail and not process anymore data-binds on the page.  This can be very inconvenient.  You may reflexibly think this is a good thing, and it very well may be, but there is definitely a use case for a backend model that may be missing fields unintentially or by design.</p>
-
-<p>The above will result in the the products being listed up to the point of the one missing the vendor field, then none after that point:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Uncaught Error: Unable to parse bindings.
-</span><span class='line'>Message: ReferenceError: vendor is not defined;
-</span><span class='line'>Bindings value: text: vendor</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This is the problem.  In the event of a developer mistake, or missing data, my opinion is it is better to continue processing instead of failing the rest of the page.</p>
-
-<h3>Solution</h3>
-
-<p>The solution to the above problem requires hacking Knockout.js to prevent it from terminating early in the processesing of a page upon a data-bind evaluation error.</p>
-
-<p>To contain all of my custom Knockout bindings I created a file called koBindingHandlers.coffee is included in my header after the knockout library.  In other works, knockout must first be available for knockout to be overridden.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="c1"># Only one section overridden here, that is the catch of the &#39;parseBindingsString&#39;</span>
-</span><span class='line'><span class="nx">ko</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">bindingProvider</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>  <span class="s">&#39;nodeHasBindings&#39;</span><span class="o">:</span> <span class="nf">(node) -&gt;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">is</span> <span class="mi">1</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">node</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s">&#39;data-bind&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">null</span>
-</span><span class='line'>    <span class="k">else</span> <span class="k">if</span> <span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">is</span> <span class="mi">8</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">virtualElements</span><span class="p">.</span><span class="nx">virtualNodeBindingValue</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">null</span>
-</span><span class='line'>    <span class="k">else</span>
-</span><span class='line'>      <span class="k">return</span> <span class="kc">false</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="s">&#39;getBindings&#39;</span><span class="o">:</span> <span class="nf">(node, bindingContext) -&gt;</span>
-</span><span class='line'>    <span class="nv">bindingsString = </span><span class="k">this</span><span class="p">[</span><span class="s">&#39;getBindingsString&#39;</span><span class="p">](</span><span class="nx">node</span><span class="p">,</span> <span class="nx">bindingContext</span><span class="p">);</span>
-</span><span class='line'>    <span class="k">if</span> <span class="nx">bindingsString</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">[</span><span class="s">&#39;parseBindingsString&#39;</span><span class="p">](</span><span class="nx">bindingsString</span><span class="p">,</span> <span class="nx">bindingContext</span><span class="p">,</span> <span class="nx">node</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">else</span>
-</span><span class='line'>      <span class="k">return</span> <span class="kc">null</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="s">&#39;getBindingsString&#39;</span><span class="o">:</span> <span class="nf">(node, bindingContext) -&gt;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">is</span> <span class="mi">1</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">node</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s">&#39;data-bind&#39;</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">else</span> <span class="k">if</span> <span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">is</span> <span class="mi">8</span>
-</span><span class='line'>      <span class="nx">ko</span><span class="p">.</span><span class="nx">virtualElements</span><span class="p">.</span><span class="nx">virtualNodeBindingValue</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">else</span>
-</span><span class='line'>      <span class="k">return</span> <span class="kc">null</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="s">&#39;parseBindingsString&#39;</span><span class="o">:</span> <span class="nf">(bindingsString, bindingContext, node) -&gt;</span>
-</span><span class='line'>    <span class="k">try</span>
-</span><span class='line'>      <span class="nv">bindingFunction = </span><span class="nx">createBindingsStringEvaluatorViaCache</span><span class="p">(</span><span class="nx">bindingsString</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">bindingCache</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">bindingFunction</span><span class="p">(</span><span class="nx">bindingContext</span><span class="p">,</span> <span class="nx">node</span><span class="p">);</span>
-</span><span class='line'>    <span class="k">catch</span> <span class="nx">ex</span>
-</span><span class='line'>      <span class="c1"># Comment this out!</span>
-</span><span class='line'>      <span class="c1"># throw new Error(&quot;Unable to parse bindings.\nMessage: &quot; + ex + &quot;;\nBindings value: &quot; + bindingsString)</span>
-</span><span class='line'>      <span class="c1"># Optionally uncomment this to debug problems, otherwise all errors are supressed.</span>
-</span><span class='line'>      <span class="c1"># console.warn &quot;Unable to parse bindings.\nMessage: &quot; + ex + &quot;;\nBindings value: &quot; + bindingsString</span>
-</span><span class='line'>      <span class="k">return</span> <span class="kc">undefined</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingProvider</span><span class="p">[</span><span class="s">&#39;instance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">bindingProvider</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="nv">createBindingsStringEvaluatorViaCache = </span><span class="nf">(bindingsString, cache) -&gt;</span>
-</span><span class='line'>  <span class="nv">cacheKey = </span><span class="nx">bindingsString</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">return</span> <span class="nx">cache</span><span class="p">[</span><span class="nx">cacheKey</span><span class="p">]</span> <span class="o">||</span> <span class="p">(</span><span class="nx">cache</span><span class="p">[</span><span class="nx">cacheKey</span><span class="p">]</span> <span class="o">=</span> <span class="nx">createBindingsStringEvaluator</span><span class="p">(</span><span class="nx">bindingsString</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="nv">createBindingsStringEvaluator = </span><span class="nf">(bindingsString) -&gt;</span>
-</span><span class='line'>  <span class="nv">rewrittenBindings = </span><span class="nx">ko</span><span class="p">.</span><span class="nx">expressionRewriting</span><span class="p">.</span><span class="nx">preProcessBindings</span><span class="p">(</span><span class="nx">bindingsString</span><span class="p">)</span>
-</span><span class='line'>  <span class="nv">functionBody = </span><span class="s">&quot;with($context){with($data||{}){return{&quot;</span> <span class="o">+</span> <span class="nx">rewrittenBindings</span> <span class="o">+</span> <span class="s">&quot;}}}&quot;</span>
-</span><span class='line'>  <span class="k">return</span> <span class="k">new</span> <span class="nb">Function</span><span class="p">(</span><span class="s">&quot;$context&quot;</span><span class="p">,</span> <span class="s">&quot;$element&quot;</span><span class="p">,</span> <span class="nx">functionBody</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In the above code, in <em>&lsquo;parseBindingsString&rsquo;</em> I commented out:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s">&quot;Unable to parse bindings.\nMessage: &quot;</span> <span class="o">+</span> <span class="nx">ex</span> <span class="o">+</span> <span class="s">&quot;;\nBindings value: &quot;</span> <span class="o">+</span> <span class="nx">bindingsString</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>When this js error is thrown it causes the early termination of processing of any more Knockout bindings.  The sideeffect is it does become very difficult at times to debug when you&rsquo;ve made a small mistake.  In that case you can simply uncomment:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">warn</span> <span class="s">&quot;Unable to parse bindings.\nMessage: &quot;</span> <span class="o">+</span> <span class="nx">ex</span> <span class="o">+</span> <span class="s">&quot;;\nBindings value: &quot;</span> <span class="o">+</span> <span class="nx">bindingsString</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In practice I find it rare that implementing the above workaround causes any development pain.  If something seems off or not rendering, I simply uncomment the <em>console.log</em> figure out what is breaking the Knockout binding, fix it, and continue.</p>
-
-<p>I hope this helps some of you other Knockout users since this was originally one of my pain points with the Library.</p>
+      <div class="sharing">
+  
+  <a href="/dbits//twitter.com/share" class="twitter-share-button" data-url="http://engineersamuel.github.io/dbits/blog/2013/08/19/requirejs-plus-angularjs-plus-pnotify/" data-via="" data-counturl="http://engineersamuel.github.io/dbits/blog/2013/08/19/requirejs-plus-angularjs-plus-pnotify/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/dbits/blog/2013/08/12/suppressing-knockout-dot-js-evaluation-errors/" title="Previous Post: Suppressing knockout.js evaluation errors">&laquo; Suppressing knockout.js evaluation errors</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/dbits/blog/archives">Blog Archives</a>
-    
-  </div>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -596,7 +407,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/engineersamuel">@engineersamuel</a> on GitHub
@@ -631,6 +442,7 @@
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -645,7 +457,10 @@
       var disqus_shortname = 'dbits';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://engineersamuel.github.io/dbits/blog/2013/08/19/requirejs-plus-angularjs-plus-pnotify/';
+        var disqus_url = 'http://engineersamuel.github.io/dbits/blog/2013/08/19/requirejs-plus-angularjs-plus-pnotify/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
