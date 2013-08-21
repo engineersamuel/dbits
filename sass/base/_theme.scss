@@ -71,7 +71,9 @@ a {
 }
 
 html {
-  background: $page-bg image-url('line-tile.png') top left;
+  // #TODO Custom addition, I hate the way this makes Chrome behave with the line-title.png
+  //background: $page-bg image-url('line-tile.png') top left;
+  background: $page-bg;
 }
 body {
   > div {
