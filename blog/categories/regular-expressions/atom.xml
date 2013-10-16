@@ -4,7 +4,7 @@
   <title><![CDATA[Category: regular expressions | DBits]]></title>
   <link href="http://engineersamuel.github.io/dbits/blog/categories/regular-expressions/atom.xml" rel="self"/>
   <link href="http://engineersamuel.github.io/dbits/"/>
-  <updated>2013-10-16T18:51:29-04:00</updated>
+  <updated>2013-10-16T18:52:16-04:00</updated>
   <id>http://engineersamuel.github.io/dbits/</id>
   <author>
     <name><![CDATA[Samuel Mendenhall]]></name>
@@ -221,7 +221,7 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>time head -n 100 /tmp/server.log | ruby -Ilib ./bin/splog &mdash;line-count=100 -p jboss_log4j_common -c  -o -v&lt;br/>
 </span><span class='line'>0.96s user 0.84s system 104% cpu 1.723 total</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>That simple change reduced the time from 11 seconds to 1.7.  The difference is much more dramatic when parsing the whole file.  On my quad core laptop parsing the entire 90k log file with the old code had an ETA of 4 hours while with the new code it was only 18 minutes.</p>
+<p>That simple change reduced the time from 11 seconds to 1.7!  The difference is much more dramatic when parsing the whole file.  On my quad core laptop parsing the entire 90k log file with the old code had an ETA of 4 hours while with the new code it was only 18 minutes.</p>
 
 <p>Let&rsquo;s look at the <code>ruby-prof</code> of the first 100 lines as well
 <div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
