@@ -1,0 +1,5 @@
+rake new_post['something']
+rake preview # in another pane
+
+rake generate
+rake deploy
