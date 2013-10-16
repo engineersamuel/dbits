@@ -4,7 +4,7 @@
   <title><![CDATA[Category: regular expressions | DBits]]></title>
   <link href="http://engineersamuel.github.io/dbits/blog/categories/regular-expressions/atom.xml" rel="self"/>
   <link href="http://engineersamuel.github.io/dbits/"/>
-  <updated>2013-10-16T18:52:16-04:00</updated>
+  <updated>2013-10-16T18:55:03-04:00</updated>
   <id>http://engineersamuel.github.io/dbits/</id>
   <author>
     <name><![CDATA[Samuel Mendenhall]]></name>
@@ -274,6 +274,8 @@
 <p>It wasn&rsquo;t my first or second option to go outside of Ruby to speed up the regular expressions.  I felt it was too much of a hack at first.  If I can make a performance optimization within a framework/library/language versus outside of it and all things are equal, I&rsquo;d always choose in..  I definitely know there are other optimizations I can make, however once I ruled out all reasonable ones that I could find, this solution presented itself and it is actually a very clean solution.</p>
 
 <p>I struggled with finding a good solution to the slowness of Ruby Regexp#match on large files, so hopefully this post will save some of you some headaches when searching for options.</p>
+
+<p>Note that the code in this post was run on  ruby 1.9.3p374 (2013-01-15 revision 38858) [x86_64-darwin12.2.0]</p>
 ]]></content>
   </entry>
   
